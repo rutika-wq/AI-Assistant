@@ -1,4 +1,6 @@
+import os
 import gradio as gr
+
 
 def launch_ui(assistant):
 
@@ -29,8 +31,8 @@ def launch_ui(assistant):
         gr.Markdown("# 🤖 AI Personal Assistant")
 
         chatbot = gr.Chatbot(
-        label="Conversation"
-)
+            label="Conversation"
+        )
 
         with gr.Row():
             msg = gr.Textbox(
@@ -62,9 +64,10 @@ def launch_ui(assistant):
             outputs=chatbot
         )
 
+    # Launch Gradio for Render
     demo.launch(
-    server_name="127.0.0.1",
-    server_port=7861,
-    inbrowser=True,
-    quiet=True
-)
+        server_name="0.0.0.0",
+        server_port=int(os.environ.get("PORT", 7860)),
+        inbrowser=False,
+        quiet=True
+    )
