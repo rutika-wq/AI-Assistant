@@ -64,10 +64,25 @@ def launch_ui(assistant):
             outputs=chatbot
         )
 
-    # Launch Gradio for Render
-    demo.launch(
-        server_name="0.0.0.0",
-        server_port=int(os.environ.get("PORT", 7860)),
-        inbrowser=False,
-        quiet=True
-    )
+    # ==========================================
+    # Launch for Local PC and Render
+    # ==========================================
+
+    render_port = os.environ.get("PORT")
+
+    if render_port:
+        # Running on Render
+        demo.launch(
+            server_name="0.0.0.0",
+            server_port=int(render_port),
+            inbrowser=False,
+            quiet=True
+        )
+    else:
+        # Running locally
+        demo.launch(
+            server_name="127.0.0.1",
+            server_port=7861,
+            inbrowser=True,
+            quiet=True
+        )
